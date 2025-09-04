@@ -129,3 +129,72 @@ WHERE StudentID BETWEEN 5 AND 10;
 SELECT COUNT(*)
 FROM Students
 WHERE YEAR(DateOfBirth) = 2004;
+
+
+
+SELECT * FROM employee;
+
+
+-- Find the second highest salary from the Employee table.
+
+SELECT MAX(salary) AS SecondHighestSalary
+FROM employee
+WHERE salary < (
+    SELECT MAX(salary) FROM employee
+);
+
+
+SELECT * FROM employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+
+
+
+-- Retrieve duplicate rows from a table.
+
+
+SELECT first_name, COUNT(*)
+FROM employee
+GROUP BY  first_name
+HAVING COUNT(*) > 1;
+
+-- Show top 5 highest salaries.
+
+SELECT * FROM employee
+ORDER BY salary DESC
+LIMIT 5;
+
+
+
+-- Count total employees per department_id.
+
+SELECT department_id, COUNT(*) AS total_number_of_department
+FROM employee
+GROUP BY department_id;
+
+
+
+SELECT *
+FROM employee
+WHERE department_id IS NULL;
+
+SELECT * FROM employee
+WHERE  department_id IS NOT NULL;
+
+
+
+SELECT EXTRACT(YEAR FROM hire_date) AS year, SUM(salary) AS total_salary
+FROM employee
+GROUP BY EXTRACT(YEAR FROM hire_date);
+
+
+
+SELECT
+        EXTRACT(YEAR FROM hire_date) AS year,
+        EXTRACT(MONTH FROM hire_date) AS month,
+        EXTRACT(WEEK FROM hire_date) AS week,
+        EXTRACT(DAY FROM hire_date) AS day
+    FROM employee;
+
+
